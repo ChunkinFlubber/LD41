@@ -21,19 +21,16 @@ public class PlayerController : MonoBehaviour, IDamageable {
 	void Update () {
         if (Input.GetButtonDown("Fire1"))
         {
-            GameObject p;
-            p = Instantiate(Bullet, gameObject.transform.position, gameObject.transform.rotation);
-
-            p.GetComponent<IProjectile>().Shoot(Camera.transform.forward);
-
-            //Physics.Raycast(transform.position, Camera.transform.forward
+            Shoot();
         }
 	}
 
     void Shoot()
     {
         // Create instance of bullet.
-
+        GameObject p;
+        p = Instantiate(Bullet, gameObject.transform.position, gameObject.transform.rotation);
+        p.GetComponent<IProjectile>().Shoot(Camera.transform.forward);
     }
 
     public void Damage(float damageTaken)

@@ -10,6 +10,8 @@ public class BulletController : MonoBehaviour, IProjectile {
     float speed;
     [SerializeField]
     float lifeTimer;
+    [SerializeField]
+    float damage;
 
 	// Use this for initialization
 	void Start ()
@@ -29,7 +31,18 @@ public class BulletController : MonoBehaviour, IProjectile {
 
         // Update bullet position.
         transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
+
+        // TO-DO: Check for collision w/ enemy.
 	}
+
+    void OnCollisionEnter(Collision collision)
+    {
+        // Check if player's bullet has collided w/ an enemy.
+        if (collision.gameObject.tag == "Enemy")
+        {
+            collision.gameObject.GetComponent<IDamageable>().Damage(damage);
+        }
+    }
 
     public void Shoot(Vector3 direction)
     {
