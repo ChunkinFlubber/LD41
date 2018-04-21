@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamageable
 {
     public bool Activated = false;
     [SerializeField]
@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     Transform[] gunTransforms = null;
     [SerializeField]
     IProjectile Bullet = null;
+    GameObject BulletObject = null;
     [SerializeField]
     float ROF = 1.0f;
     int currGunSlot = 0;
@@ -23,6 +24,7 @@ public class Enemy : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player");
         fireTimeing = 1 / ROF;
         currFireTime = fireTimeing;
+        BulletObject = Bullet.GetObject();
 	}
 	
 	// Update is called once per frame
@@ -46,7 +48,7 @@ public class Enemy : MonoBehaviour
             //Shoot at player
             if(currFireTime >= fireTimeing)
             {
-
+                
             }
         }
     }
@@ -63,5 +65,15 @@ public class Enemy : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void Damage(float damageTaken)
+    {
+        //TO-DO:Take damage and update any health bars
+    }
+
+    public GameObject GetObject()
+    {
+        return gameObject;
     }
 }
