@@ -6,12 +6,13 @@ public class Enemy : MonoBehaviour, IDamageable
 {
     public bool Activated = false;
     [SerializeField]
+    float hp = 100.0f;
+    [SerializeField]
     Transform SightTrans = null;
     [SerializeField]
     Transform[] gunTransforms = null;
     [SerializeField]
     GameObject BulletObject = null;
-    IProjectile Bullet = null;
     [SerializeField]
     float ROF = 1.0f;
     int currGunSlot = 0;
@@ -29,7 +30,6 @@ public class Enemy : MonoBehaviour, IDamageable
             Debug.LogError("No Bullet Set!", gameObject);
             return;
         }
-        Bullet = BulletObject.GetComponent<IProjectile>();
 	}
 	
 	// Update is called once per frame
@@ -60,9 +60,10 @@ public class Enemy : MonoBehaviour, IDamageable
                 }
                 //Spawn and shoot projectile
                 GameObject bullet = Instantiate(BulletObject, gun.position, gun.rotation);
-                bullet.transform.LookAt(Player.transform);
-                Debug.DrawRay(gun.position, bullet.transform.forward * 500, Color.red);
-                bullet.GetComponent<IProjectile>().Shoot(bullet.transform.forward);
+                Vector3 dir = Player.transform.position - bullet.transform.position;
+                dir = GetRandomDirInRange(dir, 0.5f);
+                Debug.DrawRay(gun.position, dir * 500, Color.red);
+                bullet.GetComponent<IProjectile>().Shoot(dir.normalized);
                 //Cycle through guns
                 ++currGunSlot;
                 if (currGunSlot == gunTransforms.Length)
@@ -70,6 +71,14 @@ public class Enemy : MonoBehaviour, IDamageable
                 currFireTime = 0;
             }
         }
+    }
+
+    Vector3 GetRandomDirInRange(Vector3 dir, float range)
+    {
+        dir.x = dir.x + Random.Range(-range, range);
+        dir.y = dir.y + Random.Range(-range, range);
+        dir.z = dir.z + Random.Range(-range, range);
+        return dir;
     }
 
     bool CheckSight()
@@ -95,6 +104,9 @@ public class Enemy : MonoBehaviour, IDamageable
     public void Damage(float damageTaken)
     {
         //TO-DO:Take damage and update any health bars
+        hp -= damageTaken;
+        if (hp <= 0)
+            Destroy(gameObject);
     }
 
     public GameObject GetObject()

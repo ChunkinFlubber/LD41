@@ -126,7 +126,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4643be8e15d92544f91af52cd33157c2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.45
+      value: -0.451
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4643be8e15d92544f91af52cd33157c2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -255,6 +255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Activated: 1
+  hp: 100
   SightTrans: {fileID: 167354722}
   gunTransforms:
   - {fileID: 1621932391}
