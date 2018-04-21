@@ -10,8 +10,8 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField]
     Transform[] gunTransforms = null;
     [SerializeField]
-    IProjectile Bullet = null;
     GameObject BulletObject = null;
+    IProjectile Bullet = null;
     [SerializeField]
     float ROF = 1.0f;
     int currGunSlot = 0;
@@ -24,7 +24,12 @@ public class Enemy : MonoBehaviour, IDamageable
         Player = GameObject.FindGameObjectWithTag("Player");
         fireTimeing = 1 / ROF;
         currFireTime = fireTimeing;
-        BulletObject = Bullet.GetObject();
+        if(BulletObject == null)
+        {
+            Debug.LogError("No Bullet Set!", gameObject);
+            return;
+        }
+        Bullet = BulletObject.GetComponent<IProjectile>();
 	}
 	
 	// Update is called once per frame
@@ -48,15 +53,35 @@ public class Enemy : MonoBehaviour, IDamageable
             //Shoot at player
             if(currFireTime >= fireTimeing)
             {
-                
+                Transform gun = gunTransforms[currGunSlot];
+                if(BulletObject == null)
+                {
+                    Debug.LogError("No bullet prefab to spawn!", gameObject);
+                }
+                //Spawn and shoot projectile
+                GameObject bullet = Instantiate(BulletObject, gun.position, gun.rotation);
+                bullet.transform.LookAt(Player.transform);
+                Debug.DrawRay(gun.position, bullet.transform.forward * 500, Color.red);
+                bullet.GetComponent<IProjectile>().Shoot(bullet.transform.forward);
+                //Cycle through guns
+                ++currGunSlot;
+                if (currGunSlot == gunTransforms.Length)
+                    currGunSlot = 0;
+                currFireTime = 0;
             }
         }
     }
 
     bool CheckSight()
     {
-        Ray ray = new Ray(SightTrans.position, SightTrans.forward);
+        if(SightTrans == null)
+        {
+            Debug.LogError("No sight transform set!", gameObject);
+            return false;
+        }
+        Ray ray = new Ray(SightTrans.position, SightTrans.forward * 500);
         RaycastHit hit;
+        Debug.DrawRay(SightTrans.position, SightTrans.forward * 500, Color.red);
          if(Physics.Raycast(ray, out hit))
         {
             if (hit.collider.tag == "Player")
