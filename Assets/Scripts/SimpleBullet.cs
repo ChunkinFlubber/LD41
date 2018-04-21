@@ -26,7 +26,6 @@ public class SimpleBullet : MonoBehaviour, IProjectile
     public void Shoot(Vector3 direction)
     {
         Direction = direction;
-        Debug.Log(direction);
     }
 
     public void Shoot(Ray direction)
