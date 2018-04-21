@@ -126,7 +126,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4643be8e15d92544f91af52cd33157c2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.45
+      value: -0.451
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4643be8e15d92544f91af52cd33157c2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -227,6 +227,24 @@ Transform:
   m_Father: {fileID: 636937162}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &364617799 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100000, guid: 4643be8e15d92544f91af52cd33157c2, type: 3}
+  m_PrefabInternal: {fileID: 119391199}
+--- !u!64 &364617800
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 364617799}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 4643be8e15d92544f91af52cd33157c2, type: 3}
 --- !u!1 &636937160
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,6 +273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Activated: 1
+  hp: 100
   SightTrans: {fileID: 167354722}
   gunTransforms:
   - {fileID: 1621932391}

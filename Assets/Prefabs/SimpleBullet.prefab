@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4799741853605572}
   - component: {fileID: 114327591112657740}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SimpleBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 33978236241776664}
   - component: {fileID: 135695275078076276}
   - component: {fileID: 23061361928906730}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: cb11ec9743212644e906136284dfb5fc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

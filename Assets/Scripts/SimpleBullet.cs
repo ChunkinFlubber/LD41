@@ -6,7 +6,8 @@ public class SimpleBullet : MonoBehaviour, IProjectile
 {
     float AliveTime = 10.0f;
     Vector3 Direction = Vector3.zero;
-    float Speed = 4.0f;
+    [SerializeField]
+    float Speed = 12.0f;
     float time = 0.0f;
 	
 	// Update is called once per frame
@@ -26,7 +27,6 @@ public class SimpleBullet : MonoBehaviour, IProjectile
     public void Shoot(Vector3 direction)
     {
         Direction = direction;
-        Debug.Log(direction);
     }
 
     public void Shoot(Ray direction)
