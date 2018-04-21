@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour, IDamageable {
             GameObject p;
             p = Instantiate(Bullet, gameObject.transform.position, gameObject.transform.rotation);
 
-            p.GetComponent<IProjectile>().Shoot(Camera.transform.forward.normalized);
+            p.GetComponent<IProjectile>().Shoot(Camera.transform.forward);
 
             //Physics.Raycast(transform.position, Camera.transform.forward
         }

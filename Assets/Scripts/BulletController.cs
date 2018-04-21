@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour, IProjectile {
 
-    Vector3 dir;
+    Vector3 dir = Vector3.zero;
     
     [SerializeField]
     float speed;
+    [SerializeField]
+    float lifeTimer;
 
 	// Use this for initialization
 	void Start ()
@@ -18,7 +20,15 @@ public class BulletController : MonoBehaviour, IProjectile {
 	// Update is called once per frame
 	void Update ()
     {
-        transform.Translate(dir.normalized * speed * Time.deltaTime);
+        // Update bullet's life timer.
+        lifeTimer = Mathf.Max(lifeTimer - Time.deltaTime, 0.0f);
+        if (lifeTimer == 0.0f)
+        {
+            Destroy(gameObject);
+        }
+
+        // Update bullet position.
+        transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
 	}
 
     public void Shoot(Vector3 direction)
