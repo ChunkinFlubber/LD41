@@ -5,8 +5,12 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour, IDamageable {
 
-    float hp;
-    bool isAlive;
+    float hp = 100.0f;
+    bool isAlive = true;
+    bool isHurt = false;
+    float hurtAlphaMax = 0.5f;
+    float hurtAlphaInc;
+    float hurtAlphaFadeTime = 30.0f;
 
     [SerializeField]
     GameObject Bullet;
@@ -14,16 +18,18 @@ public class PlayerController : MonoBehaviour, IDamageable {
     GameObject Camera;
     [SerializeField]
     Text TextHP;
+    [SerializeField]
+    GameObject PanelHurt;
 
 	void Start ()
     {
-        hp = 100.0f;
+        hurtAlphaInc = 1.0f / hurtAlphaFadeTime;
         UpdateUI();
-        isAlive = true;
 	}
 	
 	void Update ()
     {
+        // Player combat mechanics.
         if (isAlive)
         {
             // Fire Weapon.
@@ -35,7 +41,9 @@ public class PlayerController : MonoBehaviour, IDamageable {
         // Update isAlive state.
         if (hp <= 0)
             isAlive = false;
-	}
+        // Update UI.
+        UpdateUI();
+    }
 
     void Shoot()
     {
@@ -52,15 +60,31 @@ public class PlayerController : MonoBehaviour, IDamageable {
         {
             TextHP.text = hp.ToString();
         }
+        // Update hurt panel alpha.
+        if (isHurt)
+        {
+            Color c = PanelHurt.GetComponent<Image>().color;
+            c.a = Mathf.Max(c.a - hurtAlphaInc, 0);
+            PanelHurt.GetComponent<Image>().color = c;
+            if (PanelHurt.GetComponent<Image>().color.a == 0)
+                isHurt = false;
+        }
     }
 
     public void Damage(float damageTaken)
     {
-        // Todo: Update health & UI bar.
-        hp = Mathf.Max(hp - damageTaken, 0);
-        UpdateUI();
-        if(hp == 0)
-            isAlive = false;
+        if (!isHurt)
+        {
+            isHurt = true;
+            // Update HP & isAlive state.
+            hp = Mathf.Max(hp - damageTaken, 0);
+            if (hp == 0)
+                isAlive = false;
+            // Set hurt panel alpha to max.
+            Color c = PanelHurt.GetComponent<Image>().color;
+            c.a = hurtAlphaMax;
+            PanelHurt.GetComponent<Image>().color = c;
+        }
     }
 
     public GameObject GetObject()
