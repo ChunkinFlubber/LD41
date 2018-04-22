@@ -25,7 +25,11 @@ public class SimpleBullet : MonoBehaviour, IProjectile
     {
         if(e.gameObject.tag == "Player")
         {
-            e.GetComponent<IDamageable>().Damage(damage);
+            IDamageable damageable = e.GetComponent<IDamageable>();
+            if(damageable != null)
+            {
+                damageable.Damage(damage);
+            }
             Destroy(gameObject);
         }
         else if(e.gameObject.tag != "Enemy")
