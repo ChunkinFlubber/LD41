@@ -41,7 +41,7 @@ public class GameController : MonoBehaviour
             {
                 PanelGameOver.SetActive(true);
                 Color c = TextGameOver.color;
-                c.a = 1;
+                c.a = 1.0f;
                 TextGameOver.color = c;
             }
             // Update panel's alpha.
