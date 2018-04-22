@@ -7,7 +7,7 @@ public class SimpleBullet : MonoBehaviour, IProjectile
     float AliveTime = 10.0f;
     Vector3 Direction = Vector3.zero;
     [SerializeField]
-    float damage = 0;
+    float damage = 10.0f;
     [SerializeField]
     float Speed = 12.0f;
     float time = 0.0f;
@@ -25,7 +25,8 @@ public class SimpleBullet : MonoBehaviour, IProjectile
     {
         if(e.gameObject.tag == "Player")
         {
-            e.GetComponent<IDamageable>().Damage(damage);
+            e.GetComponentInParent<IDamageable>().Damage(damage);
+            //e.GetComponent<IDamageable>().Damage(damage);
             Destroy(gameObject);
         }
         else if(e.gameObject.tag != "Enemy")

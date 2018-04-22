@@ -1,28 +1,40 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour, IDamageable {
 
     float hp;
+    bool isAlive;
 
     [SerializeField]
     GameObject Bullet;
-
     [SerializeField]
     GameObject Camera;
+    [SerializeField]
+    Text TextHP;
 
-	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
         hp = 100.0f;
+        UpdateUI();
+        isAlive = true;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-        if (Input.GetButtonDown("Fire1"))
+	void Update ()
+    {
+        if (isAlive)
         {
-            Shoot();
+            // Fire Weapon.
+            if (Input.GetButtonDown("Fire1"))
+            {
+                Shoot();
+            }
         }
+        // Update isAlive state.
+        if (hp <= 0)
+            isAlive = false;
 	}
 
     void Shoot()
@@ -33,18 +45,31 @@ public class PlayerController : MonoBehaviour, IDamageable {
         p.GetComponent<IProjectile>().Shoot(Camera.transform.forward);
     }
 
+    void UpdateUI()
+    {
+        // Update HP text.
+        if (TextHP != null)
+        {
+            TextHP.text = hp.ToString();
+        }
+    }
+
     public void Damage(float damageTaken)
     {
         // Todo: Update health & UI bar.
-        hp -= damageTaken;
-        if(hp <= 0)
-        {
-            //GameOver
-        }
+        hp = Mathf.Max(hp - damageTaken, 0);
+        UpdateUI();
+        if(hp == 0)
+            isAlive = false;
     }
 
     public GameObject GetObject()
     {
         return gameObject;
+    }
+
+    public bool GetIsAlive()
+    {
+        return isAlive;
     }
 }
