@@ -7,7 +7,7 @@ public class SimpleBullet : MonoBehaviour, IProjectile
     float AliveTime = 10.0f;
     Vector3 Direction = Vector3.zero;
     [SerializeField]
-    float damage = 10.0f;
+    float damage = 5.0f;
     [SerializeField]
     float Speed = 12.0f;
     float time = 0.0f;
