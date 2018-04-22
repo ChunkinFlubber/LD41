@@ -35,12 +35,17 @@ public class BulletController : MonoBehaviour, IProjectile {
         // TO-DO: Check for collision w/ enemy.
 	}
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider e)
     {
         // Check if player's bullet has collided w/ an enemy.
-        if (collision.gameObject.tag == "Enemy")
+        if (e.gameObject.tag == "Enemy")
         {
-            collision.gameObject.GetComponent<IDamageable>().Damage(damage);
+            e.gameObject.GetComponent<IDamageable>().Damage(damage);
+            Destroy(gameObject);
+        }
+        else if(e.gameObject.tag != "Player" && e.gameObject.tag != "PlayerBody")
+        {
+            Destroy(gameObject);
         }
     }
 

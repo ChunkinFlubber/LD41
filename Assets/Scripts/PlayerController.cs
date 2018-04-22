@@ -36,6 +36,11 @@ public class PlayerController : MonoBehaviour, IDamageable {
     public void Damage(float damageTaken)
     {
         // Todo: Update health & UI bar.
+        hp -= damageTaken;
+        if(hp <= 0)
+        {
+            //GameOver
+        }
     }
 
     public GameObject GetObject()

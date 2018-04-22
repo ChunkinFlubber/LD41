@@ -67,6 +67,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4911603146514794}
   - component: {fileID: 114019976488280874}
+  - component: {fileID: 136086075759693318}
+  - component: {fileID: 54411436196426300}
   m_Layer: 0
   m_Name: EasyEnemy
   m_TagString: Enemy
@@ -199,6 +201,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1063338429152476}
   m_Mesh: {fileID: 4300000, guid: 4643be8e15d92544f91af52cd33157c2, type: 3}
+--- !u!54 &54411436196426300
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1795619701398900}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &114019976488280874
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -211,6 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Activated: 1
+  hp: 100
   SightTrans: {fileID: 4359154619962252}
   gunTransforms:
   - {fileID: 4122538215392010}
@@ -218,3 +236,16 @@ MonoBehaviour:
   BulletObject: {fileID: 1320177692016924, guid: 40a96366f23a06444bd547fd50b04cf3,
     type: 2}
   ROF: 4
+--- !u!136 &136086075759693318
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1795619701398900}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.7
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.2, z: 0}
