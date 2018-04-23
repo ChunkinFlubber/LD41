@@ -50,7 +50,21 @@ public class PlayerController : MonoBehaviour, IDamageable {
         // Create instance of bullet.
         GameObject p;
         p = Instantiate(Bullet, gameObject.transform.position, gameObject.transform.rotation);
+        //Shoots in direction of camera
         p.GetComponent<IProjectile>().Shoot(Camera.transform.forward);
+        //Shoots at the center of screen unless to close to camera
+        Ray ray = new Ray(Camera.transform.position, Camera.transform.forward);
+        RaycastHit hit;
+        if(Physics.Raycast(ray, out hit))
+        {
+            Vector3 distFromCam = hit.point - Camera.transform.position;
+            //Buffer so that the projectile doesnt just go from the spawn location to your face
+            if(distFromCam.magnitude >= 1.75f)
+            {
+                Vector3 dir = hit.point - gameObject.transform.position;
+                p.GetComponent<IProjectile>().Shoot(dir.normalized);
+            }
+        }
     }
 
     void UpdateUI()
